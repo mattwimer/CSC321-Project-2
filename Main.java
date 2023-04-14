@@ -10,7 +10,12 @@ class Main {
             System.out.println(e);
         for(int e : sumMatrix(test, false))
             System.out.print(e + " ");
-        System.out.println();
+        System.out.println("\n");
+        // testing transposeMatrix()
+        System.out.println("Original matrix:");
+        printMatrix(test);
+        System.out.println("Transposed matrix:");
+        printMatrix(transposeMatrix(test));
     }
 
     public static ArrayList<ArrayList<Integer>> genMatrix(){
@@ -51,5 +56,17 @@ class Main {
             sum.add(total);
         }
         return sum;
+    }
+
+    public static ArrayList<ArrayList<Integer>> transposeMatrix(ArrayList<ArrayList<Integer>> mat){
+        int trows = mat.get(0).size(); // # of cols of mat
+        int tcols = mat.size(); // # of rows of mat
+        ArrayList<ArrayList<Integer>> transpose = new ArrayList<ArrayList<Integer>>(trows);
+        for(int i = 0 ; i < trows ; i++){
+            transpose.add(new ArrayList<Integer>(tcols));
+            for(int j = 0 ; j < tcols ; j++)
+                transpose.get(i).add(mat.get(j).get(i));
+        }
+        return transpose;
     }
 }
