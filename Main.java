@@ -3,19 +3,26 @@ class Main {
     public static void main(String[] args) {
         // testing genMatrix()
         ArrayList<ArrayList<Integer>> test = genMatrix();
-        // testing genMatrix() + printMatrix()
+        // testing genMatrix() + printMatrix(int[][])
         printMatrix(test);
-        // testing sumMatrix()
+        // testing sumMatrix(int[][], boolean)
         for(int e : sumMatrix(test, true))
             System.out.println(e);
         for(int e : sumMatrix(test, false))
             System.out.print(e + " ");
         System.out.println("\n");
-        // testing transposeMatrix()
+        // testing transposeMatrix(int[][])
         System.out.println("Original matrix:");
         printMatrix(test);
         System.out.println("Transposed matrix:");
         printMatrix(transposeMatrix(test));
+        // testing sumMatrix(int[][])
+        System.out.println("Original matrix:");
+        printMatrix(test);
+        System.out.print("Output: ");
+        for(int e : sumMatrix(test))
+            System.out.print(e + " ");
+        System.out.println("\n");
     }
 
     public static ArrayList<ArrayList<Integer>> genMatrix(){
@@ -68,5 +75,32 @@ class Main {
                 transpose.get(i).add(mat.get(j).get(i));
         }
         return transpose;
+    }
+
+    public static ArrayList<Integer> sumMatrix(ArrayList<ArrayList<Integer>> mat){
+        int size = mat.size()+mat.get(0).size()-1;
+        ArrayList<Integer> sum = new ArrayList<Integer>(size);
+        for(int diag = 0 ; diag < size ; diag++){
+            // **** Verbose way ****
+            // int row, col;
+            // if(diag < mat.size()){
+            //     row = diag;
+            //     col = 0;
+            // }
+            // else{
+            //     row = mat.size() - 1;
+            //     col = diag - mat.size() + 1;
+            // }
+            // **** Concise way ****
+            int row = Math.min(diag, mat.size()-1);
+            int col = diag < mat.size() ? 0 : diag - mat.size() + 1;
+            int total = 0;
+            while(row >= 0 && col < mat.get(0).size())
+                total += mat.get(row--).get(col++);
+            // this also works =)
+            // for(total = 0 ; row < mat.size() && col < mat.get(0).size() ; total += mat.get(row--).get(col++)){}
+            sum.add(total);
+        }
+        return sum;
     }
 }
