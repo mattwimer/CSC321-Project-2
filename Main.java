@@ -23,6 +23,15 @@ class Main {
         for(int e : sumMatrix(test))
             System.out.print(e + " ");
         System.out.println("\n");
+        // testing sortMatrix(int[][], int, boolean)
+        System.out.println("Original matrix:");
+        printMatrix(test);
+        System.out.println("Matrix after sorting row 0:");
+        sortMatrix(test, 0, true);
+        printMatrix(test);
+        System.out.println("Matrix after sorting col 2");
+        sortMatrix(test, 2, false);
+        printMatrix(test);
     }
 
     public static ArrayList<ArrayList<Integer>> genMatrix(){
@@ -102,5 +111,32 @@ class Main {
             sum.add(total);
         }
         return sum;
+    }
+
+    public static void sortMatrix(ArrayList<ArrayList<Integer>> mat, int n, boolean row){
+        // row == true ? size = # of cols :    size = # of rows
+        int size = row ? mat.get(0).size() : mat.size();
+
+        
+        for(int i = 0; i < size ; i++){
+            int bestIndex = i;
+            for(int j = i ; j < size ; j++){
+                int current = mat.get(row ? n : j).get(row ? j : n);
+                int best = mat.get(row ? n : bestIndex).get(row ? bestIndex : n);
+                if((row && (best > current)) || (!row && (best < current)))
+                    bestIndex = j;
+            }
+            int temp = mat.get(row ? n : i).get(row ? i : n);
+            mat.get(row ? n : i).set(row ? i : n, mat.get(row ? n : bestIndex).get(row ? bestIndex : n));
+            mat.get(row ? n : bestIndex).set(row ? bestIndex : n, temp);
+        }
+        //         // i is constant for each iteration of this loop
+        //         // therefore either the row or col depends on j which varies in each iteration
+        //         total += mat.get(row ? i : j).get(row ? j : i);
+        //     sum.add(total);
+        // }
+        // return sum;
+        
+
     }
 }
