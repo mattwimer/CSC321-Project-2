@@ -6,30 +6,32 @@ class Main {
         // testing genMatrix() + printMatrix(int[][])
         printMatrix(test);
         // testing sumMatrix(int[][], boolean)
+        System.out.println("Sum of rows:");
         for(int e : sumMatrix(test, true))
             System.out.println(e);
+        System.out.println("Sum of columns:");
         for(int e : sumMatrix(test, false))
             System.out.print(e + " ");
         System.out.println("\n");
         // testing transposeMatrix(int[][])
-        System.out.println("Original matrix:");
-        printMatrix(test);
+        // System.out.println("Original matrix:");
+        // printMatrix(test);
         System.out.println("Transposed matrix:");
         printMatrix(transposeMatrix(test));
         // testing sumMatrix(int[][])
-        System.out.println("Original matrix:");
-        printMatrix(test);
-        System.out.print("Output: ");
+        // System.out.println("Original matrix:");
+        // printMatrix(test);
+        System.out.print("sumMatrix(int[][]):");
         for(int e : sumMatrix(test))
             System.out.print(e + " ");
         System.out.println("\n");
         // testing sortMatrix(int[][], int, boolean)
-        System.out.println("Original matrix:");
-        printMatrix(test);
+        // System.out.println("Original matrix:");
+        // printMatrix(test);
         System.out.println("Matrix after sorting row 0:");
         sortMatrix(test, 0, true);
         printMatrix(test);
-        System.out.println("Matrix after sorting col 2");
+        System.out.println("Matrix after sorting col 2:");
         sortMatrix(test, 2, false);
         printMatrix(test);
         // testing multiMatrix(int[][], int[][])
