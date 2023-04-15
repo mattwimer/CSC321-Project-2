@@ -32,6 +32,16 @@ class Main {
         System.out.println("Matrix after sorting col 2");
         sortMatrix(test, 2, false);
         printMatrix(test);
+        // testing multiMatrix(int[][], int[][])
+        ArrayList<ArrayList<Integer>> test1 = genMatrix();
+        ArrayList<ArrayList<Integer>> test2;
+        for(test2 = genMatrix() ; test1.get(0).size() != test2.size() ; test2 = genMatrix());
+        System.out.println("Matrix A:");
+        printMatrix(test1);
+        System.out.println("Matrix B:");
+        printMatrix(test2);
+        System.out.println("Product of A * B:");
+        printMatrix(multiMatrix(test1, test2));
     }
 
     public static ArrayList<ArrayList<Integer>> genMatrix(){
@@ -116,8 +126,6 @@ class Main {
     public static void sortMatrix(ArrayList<ArrayList<Integer>> mat, int n, boolean row){
         // row == true ? size = # of cols :    size = # of rows
         int size = row ? mat.get(0).size() : mat.size();
-
-        
         for(int i = 0; i < size ; i++){
             int bestIndex = i;
             for(int j = i ; j < size ; j++){
@@ -130,13 +138,26 @@ class Main {
             mat.get(row ? n : i).set(row ? i : n, mat.get(row ? n : bestIndex).get(row ? bestIndex : n));
             mat.get(row ? n : bestIndex).set(row ? bestIndex : n, temp);
         }
-        //         // i is constant for each iteration of this loop
-        //         // therefore either the row or col depends on j which varies in each iteration
-        //         total += mat.get(row ? i : j).get(row ? j : i);
-        //     sum.add(total);
-        // }
-        // return sum;
-        
+    }
 
+    // let a have dimensions i x j, and b have dimensions j x k
+    // returns the product of matrix multiplication iff 
+    // resultant matrix will have dimensions i x k
+    public static ArrayList<ArrayList<Integer>> multiMatrix(ArrayList<ArrayList<Integer>> a, ArrayList<ArrayList<Integer>> b){
+        if (a.get(0).size() != b.size())
+            return null; // impossible to multiply
+        int mrows = a.size();
+        int mcols = b.get(0).size();
+        ArrayList<ArrayList<Integer>> multi = new ArrayList<ArrayList<Integer>>(mrows);
+        for(int i = 0 ; i < mrows ; i++){
+            multi.add(new ArrayList<Integer>(mcols));
+            for(int j = 0 ; j < mcols ; j++){
+                int total = 0;
+                for(int k = 0 ; k < b.size() ; k++)
+                    total += a.get(i).get(k) * b.get(k).get(j);
+                multi.get(i).add(total);
+            }
+        }
+        return multi;
     }
 }
